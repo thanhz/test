@@ -6,4 +6,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run a one-line script
-      run: echo Hello, world!
+      run: |
+      {{ if github.event.head_commit.message }}
+        echo INSIDE THE IF STATEMENT
+      {{ endif }}
+
+      echo Hello, world!
