@@ -1,4 +1,20 @@
 name: Example workflow
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: 'Environment'
+        required: true
+        options:
+          - intg
+          - staging
+          - prod
+        default: 'intg'
+      tag_choice:
+        description: 'Select a tag'
+        required: true
+        default: 'latest'
 on: [push]
 jobs:
   build:
@@ -6,8 +22,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run a one-line script
+    if: github.repository == 'octo-org/octo-repo-prod'
       run: |
-        if [ '${{ github.event.head_commit.message }}' ]; then
+        if [ ${{ github.event.head_commit.message }} ]; then
           echo "INSIDE THE IF STATEMENT"
         fi
         echo "Hello, world!"
