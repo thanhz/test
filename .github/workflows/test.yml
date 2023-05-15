@@ -15,16 +15,16 @@ on:
         description: 'Select a tag'
         required: true
         default: 'latest'
-on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run a one-line script
-    if: github.repository == 'octo-org/octo-repo-prod'
-      run: |
-        if [ ${{ github.event.head_commit.message }} ]; then
-          echo "INSIDE THE IF STATEMENT"
-        fi
-        echo "Hello, world!"
+  deploy:
+    uses: someRepo
+    with:
+      service: test
+      image-name: test-image
+      environment: ${{ github.event.inputs.environment }}
+      to-deploy: ${{ github.event.inputs.to-deploy }}
+    secrets:
+      ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
+      MANAGEMENT_ACCOUNT: ${{ secrets.MANAGEMENT_ACCOUNT }}
+      WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
