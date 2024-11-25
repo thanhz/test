@@ -16,15 +16,20 @@ on:
         required: true
         default: 'latest'
 jobs:
-  deploy:
-    uses: someRepo
-    with:
-      service: test
-      image-name: test-image
-      environment: ${{ github.event.inputs.environment }}
-      to-deploy: ${{ github.event.inputs.to-deploy }}
-    secrets:
-      ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
-      MANAGEMENT_ACCOUNT: ${{ secrets.MANAGEMENT_ACCOUNT }}
-      WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+  runs-on: ubuntu-latest
+  steps:
+    - name: Print Repository Name
+      run: |
+        REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+        echo "Repository Name: $REPO_NAME"
+    # uses: someRepo
+    # with:
+    #   service: test
+    #   image-name: test-image
+    #   environment: ${{ github.event.inputs.environment }}
+    #   to-deploy: ${{ github.event.inputs.to-deploy }}
+    # secrets:
+    #   ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
+    #   MANAGEMENT_ACCOUNT: ${{ secrets.MANAGEMENT_ACCOUNT }}
+    #   WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
+    #   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
