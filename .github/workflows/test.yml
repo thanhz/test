@@ -23,6 +23,9 @@ jobs:
         run: |
           REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
           echo "Repository Name: $REPO_NAME"
+      - name: Print Repository Name 2
+        run: echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
+
     # uses: someRepo
     # with:
     #   service: test
